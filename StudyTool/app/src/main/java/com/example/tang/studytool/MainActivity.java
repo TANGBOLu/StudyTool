@@ -1,23 +1,36 @@
 package com.example.tang.studytool;
 
+
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.os.PersistableBundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.tang.studytool.TabFragment.LearningFragment;
+import com.example.tang.studytool.TabFragment.MinToolFragment;
+import com.example.tang.studytool.TabFragment.SettingFragment;
+import com.example.tang.studytool.TabFragment.TomotoFragment;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     @BindView(R.id.learingplan_image)
     ImageView learingplanImage;
@@ -43,13 +56,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView settingText;
     @BindView(R.id.setting_layout)
     RelativeLayout settingLayout;
-    @BindView(R.id.activity_main)
 
-    LinearLayout activityMain;
     LearningFragment learningFragment;
     MinToolFragment minToolFragment;
     SettingFragment settingFragment;
     TomotoFragment tomotoFragment;
+
     /*
     * 用于fragment管理
      */
@@ -59,29 +71,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
 
-        InitLayout();
-        fragmentManager = getFragmentManager();
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        ButterKnife.bind(this);
+        if(savedInstanceState==null) {
+
+            fragmentManager = getFragmentManager();//初始化
+        }
+        initTabLay();//初始化layout
         setTabSelection(0);//默认第一页
+
     }
 
-    /**
-     * 初始化Layout
-     */
-    private void InitLayout() {
+    private void initTabLay() {
         learingplanLayout.setOnClickListener(this);
         tomatoLayout.setOnClickListener(this);
         mintoolLayout.setOnClickListener(this);
         settingLayout.setOnClickListener(this);
     }
 
-    /**
-     * 重写单击事件
-     * @param view
-     */
-    public void onClick(View view) {
-        switch (view.getId()) {
+
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.learingplan_layout:
                 setTabSelection(0);
                 break;
@@ -98,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
-    *   消息分发
+     * 消息分发
      */
     private void setTabSelection(int index) {
         // 每次选中之前先清楚掉上次的选中状态
@@ -114,12 +141,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 learingplanText.setTextColor(Color.WHITE);
                 if (learningFragment == null) {
                     // 如果为空，则创建一个并添加到界面上
-                     learningFragment = new LearningFragment();
+                    learningFragment = new LearningFragment();
                     transaction.add(R.id.content, learningFragment);
 
                 } else {
                     // 如果不为空，则直接将它显示出来
+
                     transaction.show(learningFragment);
+                    transaction.replace(R.id.content,learningFragment);
                 }
                 break;
             case 1:
@@ -146,6 +175,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     // 如果不为空，则直接将它显示出来
                     transaction.show(minToolFragment);
+
                 }
                 break;
             case 3:
@@ -164,6 +194,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
         transaction.commit();
+
     }
 
     /**
@@ -183,8 +214,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * 将所有的Fragment都置为隐藏状态。
      *
-     * @param transaction
-     *            用于对Fragment执行操作的事务
+     * @param transaction 用于对Fragment执行操作的事务
      */
     private void hideFragments(FragmentTransaction transaction) {
         if (learningFragment != null) {
@@ -201,4 +231,66 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        return super.onPrepareOptionsMenu(menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 }
