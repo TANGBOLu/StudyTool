@@ -146,9 +146,7 @@ public class MainActivity extends AppCompatActivity
 
                 } else {
                     // 如果不为空，则直接将它显示出来
-
                     transaction.show(learningFragment);
-                    transaction.replace(R.id.content,learningFragment);
                 }
                 break;
             case 1:
@@ -175,10 +173,10 @@ public class MainActivity extends AppCompatActivity
                 } else {
                     // 如果不为空，则直接将它显示出来
                     transaction.show(minToolFragment);
-
                 }
                 break;
             case 3:
+
             default:
                 // 当点击了设置tab时，改变控件的图片和文字颜色
                 settingImage.setImageResource(R.drawable.ic_setup);
@@ -193,8 +191,8 @@ public class MainActivity extends AppCompatActivity
                 }
                 break;
         }
-        transaction.commit();
 
+        transaction.commit();
     }
 
     /**
@@ -210,7 +208,6 @@ public class MainActivity extends AppCompatActivity
         settingImage.setImageResource(R.drawable.ic_setup);
         settingText.setTextColor(Color.parseColor("#82858b"));
     }
-
     /**
      * 将所有的Fragment都置为隐藏状态。
      *
