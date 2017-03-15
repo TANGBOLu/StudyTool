@@ -1,6 +1,6 @@
 # StudyTool
 个人学习计划管理程序
-##添加删除计划完成
+## 添加删除计划完成
 采用控件Recyclerview、CheckBox、ButterKnife快速注入、SwipeRefreshLayout、EditText、Button、ImageView、Fragment、TimePickerDialog、Handler异步调用、Toolbar等控件。
 以及自定义View，sqlite数据库。
 
@@ -12,7 +12,7 @@
 6. 刷新计划：刷新计划
 7. 番茄工作法：用户督促完成任务
 
-##附录1：用户手册
+## 附录1：用户手册
 
 1. 单击任务修改
 2. 菜单新建计划
