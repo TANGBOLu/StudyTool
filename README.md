@@ -1,5 +1,4 @@
-# StudyTool
-个人学习计划管理程序
+# StudyTool--个人学习计划管理程序
 ## 添加删除计划完成
 采用控件Recyclerview、CheckBox、ButterKnife快速注入、SwipeRefreshLayout、EditText、Button、ImageView、Fragment、TimePickerDialog、Handler异步调用、Toolbar等控件。
 以及自定义View，sqlite数据库。
