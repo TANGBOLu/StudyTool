@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/tab_index"
+        title="主页"
+        icon="@mipmap/ic_index"
+        inActiveColor="#FFFFFF"
+        activeColor="#1296db"
+        barColorWhenSelected="#333333"
+        />
+    <tab
+        id="@+id/tab_nearby"
+        title="附近"
+        icon="@mipmap/ic_nearby"
+        inActiveColor="#FFFFFF"
+        activeColor="#1296db"
+        barColorWhenSelected="#333333"
+
+        />
+    <tab
+        id="@+id/tab_shoppingcart"
+        title="购物车"
+        icon="@mipmap/ic_gouwu"
+        inActiveColor="#FFFFFF"
+        activeColor="#1296db"
+        barColorWhenSelected="#333333"
+        />
+    <tab
+        id="@+id/tab_user"
+        title="用户"
+        icon="@mipmap/ic_user"
+        inActiveColor="#FFFFFF"
+        activeColor="#1296db"
+        barColorWhenSelected="#333333"
+        />
+</tabs>
+
