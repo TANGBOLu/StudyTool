@@ -1,5 +1,5 @@
 # StudyTool--个人学习计划管理程序
-## 添加删除计划完成
+## 代办事项完成
 采用控件Recyclerview、CheckBox、ButterKnife快速注入、SwipeRefreshLayout、EditText、Button、ImageView、Fragment、TimePickerDialog、Handler异步调用、Toolbar等控件。
 以及自定义View，sqlite数据库。
 
@@ -10,7 +10,9 @@
 5. 删除计划：不需要的计划可以删除
 6. 刷新计划：刷新计划
 7. 番茄工作法：用户督促完成任务
-
+## 成绩查询完成
+1. 查询湖南师范大学个人等级考试成绩
+2. 查询湖南师范大学个人考试成绩
 ## 附录1：用户手册
 
 1. 单击任务修改
